@@ -94,7 +94,6 @@ class ProjectController extends Controller
         // dd($request->all());
         $request->validate([
             'title' => 'required|max:50|string',
-            'link_project' => 'required|string',
             'description' => 'nullable|string',
             'technologies' => 'exists:technologies,id',
             'cover_image' => 'nullable|max:2048|file'
