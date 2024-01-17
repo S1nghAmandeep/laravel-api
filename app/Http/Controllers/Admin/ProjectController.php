@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -40,13 +41,13 @@ class ProjectController extends Controller
         // dd($request->all());
         $request->validate([
             'title' => 'required|max:50|string|',
-            'link_project' => 'required|string',
             'description' => 'nullable|string',
             'technologies' => 'exists:technologies,id',
             'cover_image' => 'nullable|max:2048|file'
         ]);
 
         $data = $request->all();
+        $data['slug'] = Str::slug($data['title'], '-');
 
         if ($request->has('cover_image')) {
             $img_path = Storage::put('upload', $request->cover_image);
@@ -100,6 +101,7 @@ class ProjectController extends Controller
         ]);
 
         $data = $request->all();
+        $data['slug'] = Str::slug($data['title'], '-');
 
         if ($request->has('cover_image')) {
             $img_path = Storage::put('upload', $request->cover_image);

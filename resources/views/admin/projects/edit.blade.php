@@ -14,10 +14,6 @@
                     <input type="text" class="form-control" name="title" id="title" placeholder="Titolo" value="{{ old('title', $project->title )}}">
                   </div>
                   <div class="mb-3">
-                    <label for="link_project" class="form-label">Project (url)</label>
-                    <input type="url" class="form-control" name="link_project" id="link_project" placeholder="Url Project" value="{{ $project->link_project }}">
-                  </div>
-                  <div class="mb-3">
                     <select class="form-select" name="category_id" id="category_id" aria-label="Default select example">
                       <option value="">Select Category</option>
                       @foreach ($categories as $category)

@@ -8,7 +8,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Project Link</th>
+                        <th>Slug</th>
                         <th>Category</th>
                         <th></th>
                         <th></th>
@@ -19,7 +19,7 @@
                         <tr>
                             <td>{{ $project->id }}</td>
                             <td><a href="{{ route('admin.projects.show', $project) }}">{{ $project->title }}</a></td>
-                            <td><a href="#">{{ $project->link_project }}</a></td>
+                            <td>{{ $project->slug }}</td>
                             <td>{{ isset($project->category) ? $project->category->name : '-' }}</td>
                             {{-- <td>{{ optional($project->category)->name }}</td> --}}
                             <td><a class="btn btn-primary btn-sm" href="{{ route('admin.projects.edit', $project) }}">edit</a></td>
