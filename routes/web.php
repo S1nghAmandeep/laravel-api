@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::resource('projects', ProjectController::class);
 
         Route::resource('leads', LeadController::class)->only(['create', 'store']);
+
+        Route::post('/projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore');
     }
 );
 
