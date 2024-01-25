@@ -11,7 +11,12 @@
                         <th>Slug</th>
                         <th>Category</th>
                         <th></th>
-                        <th></th>
+                        <th>
+                            @if (request()->has('trashed'))
+                            <a href="{{ route('admin.projects.index') }}">Home</a></th>
+                            @else
+                            <a href="{{ route('admin.projects.index', ['trashed' => 1]) }}">Trash({{$trashedProjects}})</a></th>
+                            @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -24,18 +29,18 @@
                             {{-- <td>{{ optional($project->category)->name }}</td> --}}
                             <td><a class="btn btn-primary btn-sm" href="{{ route('admin.projects.edit', $project) }}">edit</a></td>
                             <td>
-                                <button myBtn id="myBtn" class="btn btn-sm btn-danger delete">Delete</button>
-                                <div id="bgForm" class="bg-form">
-                                    <div class="d-flex gap-3 delete-form">
-                                        <form action="{{ route('admin.projects.destroy', $project) }}" method="POST">
+                                @if ($project->trashed())
+                                <form action="{{  route('admin.projects.restore', $project)}}" method="POST">
+                                    @csrf
+                                    <input class="btn btn-success btn-sm mb-2" type="submit" value="Restore">
+                                </form>
+                                @endif
+                                <form  action="{{ route('admin.projects.destroy', $project) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                </form>
 
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button class="btn btn-danger btn-lg">Yes</button>
-                                        </form>
-                                    <button id="noBtn" class="btn btn-primary btn-lg">No</button>
-                                </div>
                             </td>
                         </tr>
                     @empty
